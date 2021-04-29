@@ -170,8 +170,11 @@ function displayBeer(beersArray){
         cartComunicat.classList.remove('cart-comunicat-visible');
         },800)
         
-        const beer = target.nextSibling.nextSibling.textContent;
-        selectedBeer.push(beer)
+        const beerName = target.nextSibling.nextSibling.textContent;
+        const beer = beers.filter(function(beer){
+            return beer.name === beerName;
+        })
+        selectedBeer.push(beer[0]);
         cartNumber.innerHTML=selectedBeer.length
     })
     })
@@ -216,18 +219,27 @@ function displayBtns (){
 
 // Display items in cart 
 cartBtn.addEventListener('click',function(e){
-    let orderList = selectedBeer.map((item)=>{
-         return`<h2 class="item-name">${item}</h2>`
-    })
+    const orderList = selectedBeer.map((item)=>{
+         return`<div class='single-item'><h2 class="item-name">${item.name} &nbsp<span class='delete'>x</span></h2></div>`
+    }).join('');
+
+    let total = selectedBeer.reduce(function(acc,currItem){
+        acc+=currItem.price
+        return acc
+    }, 0);
+    total = total.toFixed(2);
+
     cartBtn.classList.add('cart-off')
+
     cartTotal.innerHTML= `<h3>Your order:</h3>
     <div class="items">
-${orderList}
+    ${orderList}
     </div>
-    <h3 class="total">Total : 10 dolars</h3>
+    <h3 class="total">Total : ${total} dolars</h3>
     <button class="btn btn-order">Order</button>
     <button class="btn btn-close">close</button>
     <button class="btn btn-clear">clear order</button>`
+
     const btnOrder = document.querySelector('.btn-order')
     const btnClose = document.querySelector('.btn-close')
     const btnClear = document.querySelector('.btn-clear');
@@ -236,6 +248,7 @@ ${orderList}
         cartBtn.classList.remove('cart-off')
         selectedBeer.length=0;
         cartNumber.innerHTML='';
+        console.log('your order is coming');
     })
     btnClose.addEventListener('click',function(){
         cartTotal.innerHTML=''
@@ -247,4 +260,21 @@ ${orderList}
         selectedBeer.length=0;
         cartNumber.innerHTML='';
     })
+    const tempWrapper = document.querySelector('.items')
+    const deleteBtn = document.querySelectorAll('.delete');
+    deleteBtn.forEach((btn)=>{
+        btn.addEventListener('click',function(e){
+            currBtn = e.currentTarget.parentElement.parentElement;
+            let currBeer = e.currentTarget.parentElement.textContent.slice(0,-3);
+            console.log(currBeer);
+            tempWrapper.removeChild(currBtn)
+            const deleteBeer = selectedBeer.find(element => element.name ===currBeer);
+        const index = selectedBeer.indexOf(deleteBeer);
+        if (index > -1) {
+            selectedBeer.splice(index, 1);
+          }
+          cartNumber.innerHTML=selectedBeer.length
+        })
+    })
+
     })
