@@ -1,191 +1,217 @@
-*{
-    margin: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 img {
-    width: 50%;
-    margin: auto;
+  width: 50%;
+  margin: auto;
 }
 
-.header{
-    width: 100%;
-    text-align: center;
-    padding: 40px 0 40px 0;
-    background: white;
-    box-shadow: 0px 14px 19px -8px rgba(50, 50, 50, 0.75);
+.header {
+  width: 100%;
+  text-align: center;
+  padding: 40px 0 40px 0;
+  background: white;
+  box-shadow: 0px 14px 19px -8px rgba(50, 50, 50, 0.75);
 }
 
 .main-menu {
-    width: 50%;
-    height: 100% !important;
-    margin: auto;
-    margin-top: 100px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-row-gap: 30px;
-    grid-column-gap: 10%;
-    text-align: center;
+  width: 50%;
+  height: 100% !important;
+  margin: auto;
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: 1fr;
+  /* grid-row-gap: 30px; */
+  grid-column-gap: 10px;
+  text-align: center;
+}
+
+.wide-menu {
+  width: 70%;
+  grid-template-columns: 3fr 1fr;
+}
+
+.beer__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 30px;
+  grid-column-gap: 10%;
+  border: 1px solid red;
 }
 
 .beer {
-    text-align: left;
+  text-align: left;
 }
 
-h2{
-    font-size: 40px;
-    font-weight: bold;
-    font-family: karantina;
+h2 {
+  font-size: 40px;
+  font-weight: bold;
+  font-family: karantina;
 }
 
-h3{
-    font-size: 200%;
-    font-weight: 300;
-    font-family: karantina;
+h3 {
+  font-size: 200%;
+  font-weight: 300;
+  font-family: karantina;
 }
 
 .cost {
-    font-weight: bold;
+  font-weight: bold;
 }
 
-p{
-    font-family: roboto;
+p {
+  font-family: roboto;
 }
 
 .order-btn {
-    width: 35px;
-    height: 35px;
-    transform: translate(-150%, 110%);
-    cursor: pointer;
+  width: 35px;
+  height: 35px;
+  transform: translate(-150%, 110%);
+  cursor: pointer;
 }
 
-.ordered{
-background-color: rgb(0, 49, 165);
+.ordered {
+  background-color: rgb(0, 49, 165);
 }
 
-.fake-div{
-    background-color: white;
-    width: 100px;
-    height: 200px;
+.fake-div {
+  background-color: white;
+  width: 100px;
+  height: 200px;
 }
 
-.cart-main{
-    background-color: black;
-    height: 140px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
+.cart-main {
+  background-color: black;
+  height: 140px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
 
-.cart-sub-main{
-    width: 100%;
-    margin: auto;
-    text-align: left;
+.cart-sub-main {
+  width: 100%;
+  margin: auto;
+  text-align: left;
 }
 
-.btn-container{
-    text-align: center;
+.btn-container {
+  text-align: center;
 }
 
-
-.btn-title{
-    font-family: roboto;
-    text-transform: uppercase;
-    font-size: 140%;
-    text-align: center;
-    color: white;
-    margin-top: 25px;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-    animation-name: bounce-2;
-    animation-timing-function: ease;
+.btn-title {
+  font-family: roboto;
+  text-transform: uppercase;
+  font-size: 140%;
+  text-align: center;
+  color: white;
+  margin-top: 25px;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-name: bounce-2;
+  animation-timing-function: ease;
 }
 
-.btn{
-    margin-top: 20px;
-    background-color:#000000;
-	border-radius:30px;
-	border:2px solid #ffffff;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-    font-family: roboto;
-    text-transform: uppercase;
-    font-size: 100%;
-	font-weight:bold;
-	padding:6px 15px;
-	text-decoration:none;
-    margin-right: 10px;
+.btn {
+  margin-top: 20px;
+  background-color: #000000;
+  border-radius: 30px;
+  border: 2px solid #ffffff;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: roboto;
+  text-transform: uppercase;
+  font-size: 100%;
+  font-weight: bold;
+  padding: 6px 15px;
+  text-decoration: none;
+  margin-right: 10px;
 }
-.delete{
-    color: rgb(139, 9, 9);
-    cursor: pointer;
-    font-weight: bold;
+.delete {
+  color: rgb(139, 9, 9);
+  cursor: pointer;
+  font-weight: bold;
 }
 
 @keyframes bounce-2 {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.2); }
-    100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .cart {
-    position: fixed;
-    top: 75%;
-    right: 10%;
-    cursor: pointer;
+  position: fixed;
+  top: 75%;
+  right: 10%;
+  cursor: pointer;
 }
 
-.cart-number{
-    position: absolute;
-    top: 35%;
-    right: 45%;
-    font-size: 200%;
-    text-align: center;
+.cart-number {
+  position: absolute;
+  top: 35%;
+  right: 45%;
+  font-size: 200%;
+  text-align: center;
 }
 
-.cart-comunicat{
-    position: absolute;
-    top: 100%;
-    right: 50%;
-    text-align: center;
-    font-family: roboto;
-    visibility: hidden;
+.cart-comunicat {
+  position: absolute;
+  top: 100%;
+  right: 50%;
+  text-align: center;
+  font-family: roboto;
+  visibility: hidden;
 }
 
-.cart-comunicat-visible{
-    visibility: visible;
+.cart-comunicat-visible {
+  visibility: visible;
 }
 
-.cart-img{
-    width: 40%;
-    height: 40%;
+.cart-img {
+  width: 40%;
+  height: 40%;
 }
 
 .cart-items {
-    background-color: white;
-    position: absolute;
-    margin: auto;
-    text-align: center;
-    top: 40%;
-    z-index: 2;
-    position: fixed;
-    right: 10%;
+  border: red solid 1px;
+  /* background-color: white; */
+  /* position: absolute; */
+  /* margin: auto; */
+  text-align: center;
+  /* top: 40%; */
+  /* z-index: 2; */
+  /* position: fixed; */
+  /* right: 10%; */
 }
 
 .cart-off {
-visibility: hidden;
+  visibility: hidden;
 }
 
 .total {
-    font-weight: bold;
+  font-weight: bold;
 }
-.item-name{
-    font-weight: lighter;
-    /* margin-top: 10px;
+.item-name {
+  font-weight: lighter;
+  /* margin-top: 10px;
     margin-bottom: 10px; */
 }
-.items{
-    margin-top: 30px;
-    margin-bottom: 30px
+.items {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 1100px) {
+  .beer__container {
+    grid-template-columns: 1fr;
+  }
 }

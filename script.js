@@ -131,11 +131,12 @@ const selectedBeer = []
 
 // ========= VARIABLES
 const mainContainer = document.querySelector('.main-menu');
+const mainBeerContainer = document.querySelector('.beer__container')
 const btnContainer = document.querySelector('.btn-container')
 const cartNumber = document.querySelector('.cart-number')
 const cartComunicat = document.querySelector('.cart-comunicat')
 const cartBtn = document.querySelector('.cart');
-const cartTotal = document.querySelector('.cart-items')
+const cartItems = document.querySelector('.cart-items')
 
 // ========= EVENT LISTENERS
 window.addEventListener('DOMContentLoaded',function(){
@@ -146,6 +147,8 @@ window.addEventListener('DOMContentLoaded',function(){
 
 // display beer function and some btn style event
 function displayBeer(beersArray){
+
+    // display beer 
     let beerList = beersArray.map((item)=>{
         return `<section class="beer">
         <div class="order-btn" style="border: 4px ${item.color} solid;"></div>
@@ -154,8 +157,9 @@ function displayBeer(beersArray){
         <p>${item.description}</p>
         </section>`
     }).join('')
-    mainContainer.innerHTML=beerList
+    mainBeerContainer.innerHTML=beerList;
 
+    // selected beer push
     const addToCart = document.querySelectorAll('.order-btn');
     addToCart.forEach((addBtn)=>{
         addBtn.addEventListener('click',function(e){
@@ -213,8 +217,8 @@ function displayBtns (){
                 displayBeer(beersMenu);
               }
             })
-        })
-    }
+    })
+}
 
 
 // Display items in cart 
@@ -223,6 +227,7 @@ cartBtn.addEventListener('click',function(e){
          return`<div class='single-item'><h2 class="item-name">${item.name} &nbsp<span class='delete'>x</span></h2></div>`
     }).join('');
 
+    mainContainer.classList.add('wide-menu');
     let total = selectedBeer.reduce(function(acc,currItem){
         acc+=currItem.price
         return acc
@@ -231,7 +236,7 @@ cartBtn.addEventListener('click',function(e){
 
     cartBtn.classList.add('cart-off')
 
-    cartTotal.innerHTML= `<h3>Your order:</h3>
+    cartItems.innerHTML= `<h3>Your order:</h3>
     <div class="items">
     ${orderList}
     </div>
@@ -240,22 +245,25 @@ cartBtn.addEventListener('click',function(e){
     <button class="btn btn-close">close</button>
     <button class="btn btn-clear">clear order</button>`
 
+    // cart items btns events listeners 
     const btnOrder = document.querySelector('.btn-order')
     const btnClose = document.querySelector('.btn-close')
     const btnClear = document.querySelector('.btn-clear');
     btnOrder.addEventListener('click',function(){
-        cartTotal.innerHTML=''
+        cartItems.innerHTML=''
         cartBtn.classList.remove('cart-off')
         selectedBeer.length=0;
         cartNumber.innerHTML='';
         console.log('your order is coming');
     })
     btnClose.addEventListener('click',function(){
-        cartTotal.innerHTML=''
+        cartItems.innerHTML=''
         cartBtn.classList.remove('cart-off')
+        mainContainer.classList.remove('wide-menu');
+
     })
     btnClear.addEventListener('click',()=>{
-        cartTotal.innerHTML=''
+        cartItems.innerHTML=''
         cartBtn.classList.remove('cart-off')
         selectedBeer.length=0;
         cartNumber.innerHTML='';
@@ -276,5 +284,4 @@ cartBtn.addEventListener('click',function(e){
           cartNumber.innerHTML=selectedBeer.length
         })
     })
-
     })
