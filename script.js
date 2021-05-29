@@ -127,7 +127,7 @@ const beers = [
         color:'rgb(93, 1, 1)',
     },
 ]
-const selectedBeer = []
+const selectedBeer = [];
 
 // ========= VARIABLES
 const mainContainer = document.querySelector('.main-menu');
@@ -142,8 +142,25 @@ const cartContainer = document.querySelector('.cart__container')
 window.addEventListener('DOMContentLoaded',function(){
     displayBeer(beers)
     displayBtns ()
+    // items.map(function(e){
+        // })
+        var items = getLocalStorage();
+        localStorage.setItem('beer__List', JSON.stringify(items))
+        items.map(function(element){
+            let selected = beers.filter(function(e){
+                return e.name === element
+            })
+            selectedBeer.push(selected[0])
+            cartNumber.innerHTML=selectedBeer.length
     })
+})
 // ========= FUNCTIONS
+
+function getLocalStorage (){
+    return localStorage.getItem('beer__List')
+    ? JSON.parse(localStorage.getItem('beer__List'))
+    : [];
+}
 
 // display beer function and some btn style event
 function displayBeer(beersArray){
@@ -158,6 +175,9 @@ function displayBeer(beersArray){
         </section>`
     }).join('')
     mainBeerContainer.innerHTML=beerList;
+
+
+
 
     // selected beer push
     const addToCart = document.querySelectorAll('.order-btn');
@@ -179,7 +199,12 @@ function displayBeer(beersArray){
             return beer.name === beerName;
         })
         selectedBeer.push(beer[0]);
-        cartNumber.innerHTML=selectedBeer.length
+        cartNumber.innerHTML=selectedBeer.length;
+        var items = localStorage.getItem('beer__List')
+        ? JSON.parse(localStorage.getItem('beer__List'))
+        : [];
+        items.push(beerName);
+        localStorage.setItem('beer__List', JSON.stringify(items))
     })
     })
 }
@@ -272,11 +297,12 @@ cartBtn.addEventListener('click',function(e){
         selectedBeer.length=0;
         cartNumber.innerHTML='';
         console.log('your order is coming');
+        localStorage.clear()
     })
     btnClose.addEventListener('click',function(){
         cartBtn.classList.remove('cart-off')
         mainContainer.classList.remove('wide-menu');
-
+        cartContainer.innerHTML=''
     })
     btnClear.addEventListener('click',()=>{
         cartContainer.innerHTML=''
@@ -284,6 +310,7 @@ cartBtn.addEventListener('click',function(e){
         mainContainer.classList.remove('wide-menu');
         selectedBeer.length=0;
         cartNumber.innerHTML='';
+        localStorage.clear()
     })
 
     // X - delete btn logic
@@ -293,7 +320,6 @@ cartBtn.addEventListener('click',function(e){
         btn.addEventListener('click',function(e){
             currElement = e.currentTarget.parentElement.parentElement;
             let currBeer = e.currentTarget.parentElement.textContent.slice(0,-2);
-            console.log(currBeer)
             tempWrapper.removeChild(currElement)
             const deleteBeer = selectedBeer.find(element => element.name ===currBeer);
         const index = selectedBeer.indexOf(deleteBeer);
@@ -301,15 +327,17 @@ cartBtn.addEventListener('click',function(e){
             selectedBeer.splice(index, 1);
           }
           const newPrice = document.querySelector('.total');
-          console.log(newPrice);
           let total = selectedBeer.reduce(function(acc,currItem){
               acc+=currItem.price
               return acc
           }, 0);
           total = total.toFixed(2);
-          console.log(total)
-          newPrice.innerHTML = `Total : ${total} dolars`
-          cartNumber.innerHTML=selectedBeer.length
+          newPrice.innerHTML = `Total : ${total} dolars`;
+
+          let removeElement = JSON.parse(localStorage.getItem("beer__List")).filter(function(e){
+              return e === currBeer;
+          });
+          console.log(removeElement[0]);
         })
     })
 })
