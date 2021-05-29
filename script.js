@@ -136,7 +136,7 @@ const btnContainer = document.querySelector('.btn-container')
 const cartNumber = document.querySelector('.cart-number')
 const cartComunicat = document.querySelector('.cart-comunicat')
 const cartBtn = document.querySelector('.cart');
-const cartItems = document.querySelector('.cart-items')
+const cartContainer = document.querySelector('.cart__container')
 
 // ========= EVENT LISTENERS
 window.addEventListener('DOMContentLoaded',function(){
@@ -223,65 +223,93 @@ function displayBtns (){
 
 // Display items in cart 
 cartBtn.addEventListener('click',function(e){
+
+    // mapping through selected beer array
     const orderList = selectedBeer.map((item)=>{
-         return`<div class='single-item'><h2 class="item-name">${item.name} &nbsp<span class='delete'>x</span></h2></div>`
+         return`<div class='single-item'>
+         <h2 class="item-name">${item.name}&nbsp<span class='delete'>x</span></h2></div>`
     }).join('');
 
+    // adding class to make 3fr grid
     mainContainer.classList.add('wide-menu');
+
+    // cart disapear 
+    cartBtn.classList.add('cart-off');
+
+    // window offset to 0
+    window.scroll(0,0);
+
+    // final price calculation
     let total = selectedBeer.reduce(function(acc,currItem){
         acc+=currItem.price
         return acc
     }, 0);
     total = total.toFixed(2);
 
-    cartBtn.classList.add('cart-off')
+    // display cart container items
+    function cartContainerInner(){
+        cartContainer.innerHTML= `<h3>Your order:</h3>
+        <div class="items">
+        ${orderList}
+        </div>
+        <h3 class="total">Total : ${total} dolars</h3>
+        <button class="btn btn-order">Order</button>
+        <button class="btn btn-close">close</button>
+        <button class="btn btn-clear">clear order</button>`
+    }
 
-    cartItems.innerHTML= `<h3>Your order:</h3>
-    <div class="items">
-    ${orderList}
-    </div>
-    <h3 class="total">Total : ${total} dolars</h3>
-    <button class="btn btn-order">Order</button>
-    <button class="btn btn-close">close</button>
-    <button class="btn btn-clear">clear order</button>`
+    cartContainerInner()
 
-    // cart items btns events listeners 
+// ======= CART ITEMS EVENTS LISTENERS
+
     const btnOrder = document.querySelector('.btn-order')
     const btnClose = document.querySelector('.btn-close')
     const btnClear = document.querySelector('.btn-clear');
     btnOrder.addEventListener('click',function(){
-        cartItems.innerHTML=''
+        cartContainer.innerHTML=''
+        mainContainer.classList.remove('wide-menu');
         cartBtn.classList.remove('cart-off')
         selectedBeer.length=0;
         cartNumber.innerHTML='';
         console.log('your order is coming');
     })
     btnClose.addEventListener('click',function(){
-        cartItems.innerHTML=''
         cartBtn.classList.remove('cart-off')
         mainContainer.classList.remove('wide-menu');
 
     })
     btnClear.addEventListener('click',()=>{
-        cartItems.innerHTML=''
+        cartContainer.innerHTML=''
         cartBtn.classList.remove('cart-off')
+        mainContainer.classList.remove('wide-menu');
         selectedBeer.length=0;
         cartNumber.innerHTML='';
     })
+
+    // X - delete btn logic
     const tempWrapper = document.querySelector('.items')
     const deleteBtn = document.querySelectorAll('.delete');
     deleteBtn.forEach((btn)=>{
         btn.addEventListener('click',function(e){
-            currBtn = e.currentTarget.parentElement.parentElement;
-            let currBeer = e.currentTarget.parentElement.textContent.slice(0,-3);
-            console.log(currBeer);
-            tempWrapper.removeChild(currBtn)
+            currElement = e.currentTarget.parentElement.parentElement;
+            let currBeer = e.currentTarget.parentElement.textContent.slice(0,-2);
+            console.log(currBeer)
+            tempWrapper.removeChild(currElement)
             const deleteBeer = selectedBeer.find(element => element.name ===currBeer);
         const index = selectedBeer.indexOf(deleteBeer);
         if (index > -1) {
             selectedBeer.splice(index, 1);
           }
+          const newPrice = document.querySelector('.total');
+          console.log(newPrice);
+          let total = selectedBeer.reduce(function(acc,currItem){
+              acc+=currItem.price
+              return acc
+          }, 0);
+          total = total.toFixed(2);
+          console.log(total)
+          newPrice.innerHTML = `Total : ${total} dolars`
           cartNumber.innerHTML=selectedBeer.length
         })
     })
-    })
+})
