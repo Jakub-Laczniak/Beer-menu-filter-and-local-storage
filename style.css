@@ -203,8 +203,61 @@ p {
   margin-bottom: 30px;
 }
 
+.order__comming {
+  width: 0;
+  height: 0;
+  background-color: white;
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.order__comming h2 {
+  margin-top: 50vh;
+}
+
+.show__order {
+  animation-duration: 2s;
+  animation-name: showOrder;
+  animation-timing-function: ease;
+}
+
+@keyframes showOrder {
+  0% {
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+  25% {
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+  }
+  50% {
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+  }
+  70% {
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+  }
+  100% {
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
 @media only screen and (max-width: 1100px) {
   .beer__container {
     grid-template-columns: 1fr;
   }
 }
+
+

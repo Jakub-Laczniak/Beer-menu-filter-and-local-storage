@@ -136,14 +136,13 @@ const btnContainer = document.querySelector('.btn-container')
 const cartNumber = document.querySelector('.cart-number')
 const cartComunicat = document.querySelector('.cart-comunicat')
 const cartBtn = document.querySelector('.cart');
-const cartContainer = document.querySelector('.cart__container')
+const cartContainer = document.querySelector('.cart__container');
+const orderComming = document.querySelector('.order__comming');
 
 // ========= EVENT LISTENERS
 window.addEventListener('DOMContentLoaded',function(){
     displayBeer(beers)
     displayBtns ()
-    // items.map(function(e){
-        // })
         var items = getLocalStorage();
         localStorage.setItem('beer__List', JSON.stringify(items))
         items.map(function(element){
@@ -161,6 +160,18 @@ function getLocalStorage (){
     ? JSON.parse(localStorage.getItem('beer__List'))
     : [];
 }
+
+function clearStorage(){
+    selectedBeer.length=0;
+    cartNumber.innerHTML='';
+    localStorage.clear()
+};
+
+function cartToggle(){
+    cartContainer.innerHTML='';
+    cartBtn.classList.remove('cart-off');
+    mainContainer.classList.remove('wide-menu');
+};
 
 // display beer function and some btn style event
 function displayBeer(beersArray){
@@ -184,6 +195,8 @@ function displayBeer(beersArray){
     addToCart.forEach((addBtn)=>{
         addBtn.addEventListener('click',function(e){
         const target = e.currentTarget;
+
+    // color changer and communicat
         const targetStyle = target.style.border;
         const indexNumber = targetStyle.indexOf('r');
         const styleColor = targetStyle.slice(indexNumber,targetStyle.length)
@@ -200,11 +213,11 @@ function displayBeer(beersArray){
         })
         selectedBeer.push(beer[0]);
         cartNumber.innerHTML=selectedBeer.length;
-        var items = localStorage.getItem('beer__List')
-        ? JSON.parse(localStorage.getItem('beer__List'))
-        : [];
+        var items = getLocalStorage();
         items.push(beerName);
         localStorage.setItem('beer__List', JSON.stringify(items))
+
+        cartToggle();
     })
     })
 }
@@ -290,27 +303,19 @@ cartBtn.addEventListener('click',function(e){
     const btnOrder = document.querySelector('.btn-order')
     const btnClose = document.querySelector('.btn-close')
     const btnClear = document.querySelector('.btn-clear');
+
     btnOrder.addEventListener('click',function(){
-        cartContainer.innerHTML=''
-        mainContainer.classList.remove('wide-menu');
-        cartBtn.classList.remove('cart-off')
-        selectedBeer.length=0;
-        cartNumber.innerHTML='';
-        console.log('your order is coming');
-        localStorage.clear()
+        cartToggle()
+        clearStorage();
+        orderComming.classList.add('show__order');
+        setTimeout(function(){orderComming.classList.remove('show__order')},2500);
     })
     btnClose.addEventListener('click',function(){
-        cartBtn.classList.remove('cart-off')
-        mainContainer.classList.remove('wide-menu');
-        cartContainer.innerHTML=''
+        cartToggle()
     })
     btnClear.addEventListener('click',()=>{
-        cartContainer.innerHTML=''
-        cartBtn.classList.remove('cart-off')
-        mainContainer.classList.remove('wide-menu');
-        selectedBeer.length=0;
-        cartNumber.innerHTML='';
-        localStorage.clear()
+        cartToggle()
+        clearStorage()
     })
 
     // X - delete btn logic
@@ -334,10 +339,11 @@ cartBtn.addEventListener('click',function(e){
           total = total.toFixed(2);
           newPrice.innerHTML = `Total : ${total} dolars`;
 
-          let removeElement = JSON.parse(localStorage.getItem("beer__List")).filter(function(e){
-              return e === currBeer;
-          });
-          console.log(removeElement[0]);
+          let restElement = getLocalStorage();
+          restElement.splice(restElement.indexOf(currBeer),1);
+          console.log(restElement);
+          localStorage.setItem('beer__List', JSON.stringify(restElement));
+          cartNumber.innerHTML=restElement.length
         })
     })
 })
