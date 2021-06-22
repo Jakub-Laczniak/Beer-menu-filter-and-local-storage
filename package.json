@@ -1,26 +1,22 @@
 {
   "name": "beer-menu",
   "version": "1.0.0",
-  "description": "my local storage project",
-  "main": "script.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jakub-Laczniak/Beer-menu-filter-and-local-storage.git"
-  },
-  "author": "Jakub Łączniak",
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Jakub-Laczniak/Beer-menu-filter-and-local-storage/issues"
-  },
-  "homepage": "https://github.com/Jakub-Laczniak/Beer-menu-filter-and-local-storage#readme",
   "devDependencies": {
+    "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
-    "gulp-sass": "^4.1.0"
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "sass": "^1.26.3"
   },
-  "dependencies": {
-    "gulp-uglifycss": "^1.1.0"
-  }
+  "browserslist": [
+    "defaults"
+  ]
 }

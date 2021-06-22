@@ -1,32 +1,39 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var uglifycss = require('gulp-uglifycss');
+const entryPath = '.'
 
-gulp.task('sass', function(){
-    return gulp.src('./sass/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./css'));
-});
+const gulp = require("gulp");
+const sass = require("gulp-sass");
+sass.compiler = require('sass');
+const sourcemaps = require("gulp-sourcemaps");
+const autoprefixer = require("gulp-autoprefixer");
+const browserSync = require("browser-sync").create();
 
-// gulp.task('sass:watch', function () {
-//   gulp.watch('./sass/**/*.scss', ['sass']);
-// });
+function compileSass(done) {
+  gulp
+    .src("./sass/main.scss")
+    .pipe(sourcemaps.init())
+    .pipe(sass({outputStyle:'compressed'}).on("error", sass.logError))
+    .pipe(autoprefixer())
+    .pipe(sourcemaps.write("."))
+    .pipe(gulp.dest(entryPath + "/css"));
 
-gulp.task('css', function () {
-  gulp.src('./css/*.css')
-    .pipe(uglifycss({
-    //   "maxLineLen": 80,
-      "uglyComments": true
-    }))
-    .pipe(gulp.dest('./dist/'));
-});
+  done();
+}
 
-gulp.task('run' ['sass', 'css']);
+function watcher(done) {
+  browserSync.init({
+    server: "./"
+  });
 
+  gulp.watch(entryPath + "/sass/*.scss", gulp.series(compileSass, reload));
+  gulp.watch(entryPath + "/*.html", gulp.series(reload));
 
-// gulp.task('watch', function(){
-//     gulp.watch('./sass/*.scss', ['sass']);
-//     gulp.watch('./css/*.css', ['css']);
-// })
+  done();
+}
 
-// gulp.task('default', ['run','watch']);
+function reload(done) {
+  browserSync.reload();
+  done();
+}
+
+exports.sass = gulp.parallel(compileSass);
+exports.default = gulp.parallel(compileSass, watcher);
