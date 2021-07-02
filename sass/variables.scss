@@ -1,5 +1,6 @@
 $light__color:white;
 $dark__color:rgb(29, 29, 29);
+$delete_color: rgb(174, 8, 8);
 $primary__font: roboto;
 $secondary__font: karantina;
 
@@ -19,6 +20,24 @@ $secondary__font: karantina;
     animation-duration: $duration;
     animation-iteration-count: $iteration;
     animation-timing-function: $time;
+}
+
+@mixin button($background_color, $items_color) {
+    background-color: $background_color;
+    border-radius: 30px;
+    border: .2em solid $items_color;
+    cursor: pointer;
+    color: $items_color;
+    text-transform: uppercase;
+    padding: .3em 1.5em;
+    text-decoration: none;
+    outline: none;
+    transition: 1s;
+        &:hover{
+            border: .2em solid $items_color;
+            background-color: $items_color;
+            color: $background_color;
+        }
 }
 
 %border_test {

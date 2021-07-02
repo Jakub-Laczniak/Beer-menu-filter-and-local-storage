@@ -1,4 +1,5 @@
 @import 'variables.scss','reset';
+@use "sass:color";
   
 .header {
     width: 100%;
@@ -75,21 +76,17 @@
     }
     .filter_btn {
       @include font(.75rem,bold);
+      @include button ($dark__color,$light__color);
       margin-top: 0.625rem;
-      background-color: $dark__color;
-      border-radius: 30px;
-      border: 1em solid $light__color;
-      cursor: pointer;
-      color: $light__color;
-      text-transform: uppercase;
-      padding: 6px 15px;
-      text-decoration: none;
-      margin-right: 10px;
+      margin-right: 1em;
+      &:last-child{
+        margin-right: 0;
+      }
     }
   }
 
   .delete {
-    color: rgb(139, 9, 9);
+    color: $delete_color;
     cursor: pointer;
     font-weight: bold;
   }
@@ -109,7 +106,7 @@
   .cart__support {
     position: absolute;
     right: 0;
-    top: 20vh;
+    top: 35vh;
   }
   
   .cart {
@@ -121,7 +118,7 @@
     position: absolute;
     top: 35%;
     right: 15%;
-    font-size: 200%;
+    font-size: 1rem;
     text-align: center;
   }
   
@@ -138,14 +135,15 @@
   }
   
   .cart-img {
-    width: 40%;
-    height: 40%;
+    width: 30%;
+    height: 30%;
   }
   
   .cart__container {
     text-align: center;
     .btn{
-      @extend .filter_btn;
+      @include button($light__color,$dark__color);
+      margin-top: 1em;
     }
   }
   
@@ -167,7 +165,7 @@
   .order__comming {
     width: 0;
     height: 0;
-    background-color: white;
+    background-color: color.scale(#878787, $lightness: 20%);
     z-index: 100;
     position: absolute;
     top: 0;
@@ -175,6 +173,7 @@
     text-align: center;
     vertical-align: middle;
     overflow: hidden;
+    opacity: 0;
   }
   
   .order__comming h2 {
@@ -215,7 +214,7 @@
   
   @media only screen and (max-width: 1100px) {
     .beer__container {
-      grid-template-columns: 1fr;
+      @include grid(1fr,0)
     }
   }
   
