@@ -235,7 +235,7 @@ function displayBtns (){
         );
     // display filter btns 
         const filterBtns = styles.map((item)=>{
-        return `<button class="btn" type="button" data-id=${item}>${item}</button>`
+        return `<button class="btn filter_btn" type="button" data-id=${item}>${item}</button>`
         }).join('')
         btnContainer.innerHTML=`<h2 class="btn-title">choose your favorite style or taste you like:</h2>`+filterBtns;
     

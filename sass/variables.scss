@@ -1,0 +1,26 @@
+$light__color:white;
+$dark__color:rgb(29, 29, 29);
+$primary__font: roboto;
+$secondary__font: karantina;
+
+@mixin grid($columns,$gap){
+    display: grid;
+    grid-template-columns: $columns;
+    grid-column-gap: $gap;
+}
+
+@mixin font ($size, $weight){
+    font-size: $size;
+    font-weight: $weight;
+}
+
+@mixin animation ($name,$duration,$iteration,$time){
+    animation-name: $name;
+    animation-duration: $duration;
+    animation-iteration-count: $iteration;
+    animation-timing-function: $time;
+}
+
+%border_test {
+    border: solid 1px red;
+}
