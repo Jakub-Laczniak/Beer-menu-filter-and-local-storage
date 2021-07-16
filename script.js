@@ -1,15 +1,6 @@
 // ========= ARRAYS
 const beers = [
     {
-        name: 'Westvleteren 12 XII',
-        price: 3.99,
-        style: 'Quadrupel',
-        percentage: 10.2,
-        city: 'Westvleteren, Belgium',
-        description: 'Westvleteren has the smallest output of the Trappist breweries, with only a small part of their production available outside of Belgium.',
-        color:'rgb(93, 1, 1)',
-    },
-    {
         name: 'Artezan Kazimierz',
         price: 3.99,
         style: 'Porter',
@@ -17,6 +8,15 @@ const beers = [
         city: 'Błonie, Masovian, Poland',
         description: "Tap at Ma Che Siete Venuti a Fa in Rome-Italy. Darkest brown pour caramel highlights, medium ivory foam. Nose: coconut milk, coffee brandy.",
         color:'rgb(226, 202, 94)',
+    },
+    {
+        name: 'Westvleteren 12 XII',
+        price: 3.99,
+        style: 'Quadrupel',
+        percentage: 10.2,
+        city: 'Westvleteren, Belgium',
+        description: 'Westvleteren has the smallest output of the Trappist breweries, with only a small part of their production available outside of Belgium.',
+        color:'rgb(93, 1, 1)',
     },
     {
         name: 'Russian River Pliny the Younger',
@@ -139,6 +139,7 @@ const cartBtn = document.querySelector('.cart');
 const cartContainer = document.querySelector('.cart__container');
 const orderComming = document.querySelector('.order__comming');
 
+
 // ========= EVENT LISTENERS
 window.addEventListener('DOMContentLoaded',function(){
     displayBeer(beers)
@@ -237,7 +238,7 @@ function displayBtns (){
         const filterBtns = styles.map((item)=>{
         return `<button class="btn filter_btn" type="button" data-id=${item}>${item}</button>`
         }).join('')
-        btnContainer.innerHTML=`<h2 class="btn-title">choose your favorite style or taste you like:</h2>`+filterBtns;
+        btnContainer.innerHTML=`<h2 class="btn-title">click to choose your favorite style <br> or taste you like:</h2><div class="filter-btns-container">`+filterBtns+`<div/>`;
     
         const btns = document.querySelectorAll('.btn');
         btns.forEach((btn)=>{
@@ -256,7 +257,15 @@ function displayBtns (){
               }
             })
     })
+    // Show filter on mobile
+    const filterBtnContainer = document.querySelector('.filter-btns-container');
+    const titleBtnContainer = document.querySelector('.btn-title');
+    
+    titleBtnContainer.addEventListener('click',()=>{
+        filterBtnContainer.classList.toggle('show-filter-btns')
+    })
 }
+
 
 
 // Display items in cart 

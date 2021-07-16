@@ -3,11 +3,13 @@ $dark__color:rgb(29, 29, 29);
 $delete_color: rgb(174, 8, 8);
 $primary__font: roboto;
 $secondary__font: karantina;
+$breakpoint: 768px;
 
-@mixin grid($columns,$gap){
+@mixin grid($columns,$columnGap,$rowGap){
     display: grid;
     grid-template-columns: $columns;
-    grid-column-gap: $gap;
+    grid-column-gap: $columnGap;
+    grid-row-gap: $rowGap;
 }
 
 @mixin font ($size, $weight){
@@ -32,7 +34,7 @@ $secondary__font: karantina;
     padding: .3em 1.5em;
     text-decoration: none;
     outline: none;
-    transition: 1s;
+    transition: .2s;
         &:hover{
             border: .2em solid $items_color;
             background-color: $items_color;

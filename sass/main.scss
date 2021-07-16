@@ -1,57 +1,129 @@
-@import 'variables.scss','reset';
 @use "sass:color";
+@import 'variables.scss','reset';
   
-.header {
+header {
     width: 100%;
     text-align: center;
     padding: 1rem 0;
     background: $light__color;
     box-shadow: 0px 14px 19px -8px rgba(50, 50, 50, 0.75);
     img {
-      height: 20vh;
+      width: 90%;
       margin: auto;
     }
-  }
-  
+}
+
   .main-menu {
-    width: 60%;
+    width: 85%;
     margin: auto;
-    margin-top: 4rem;
-    text-align: center;
-    position: relative;
+    margin-top: 2rem;
+    @include grid (8fr 1fr, 2rem, 0);
 
-      .beer__container {
-        @include grid(1fr 1fr, 10%);
-        grid-row-gap: 30px;
-
-        .beer {
-          text-align: left;
-            h2 {
-              @include font(2rem,bold);
-              font-family: $secondary__font;
+    .beer__container {
+      @include grid (1fr,0,2rem);
+      .beer {
+        transform: translateX(1.5rem);
+        h2 {
+          @include font(2rem,bold);
+          font-family: $secondary__font;
             }
-            h3 {
-              @include font(2rem,lighter);
-              font-family: $secondary__font;
+        h3 {
+          @include font(2rem,lighter);
+          font-family: $secondary__font;
             }
-            .cost {
-              @include font(2rem, bold);
+        .cost {
+          @include font(2rem, bold);
             }
-          .order-btn {
-            width: 1.5rem;
-            height: 1.5rem;
-            transform: translate(-150%, 110%);
-            cursor: pointer;
+        .order-btn {
+          width: 1.5rem;
+          height: 1.5rem;
+          transform: translate(-2.25rem, 120%);
+          cursor: pointer;
           }
+      }
+    }
+
+    .cart__support {
+      position: relative;
+      width: 100%;
+      padding: 3rem 0 0;
+
+      .cart {
+        position: fixed;
+        cursor: pointer;
+
+        text-align: center;
+      }
+      .cart-number {
+        font-size: 1rem;
+      }
+      .cart-comunicat {
+        text-align: center;
+        font-family: roboto;
+        visibility: hidden;
+      }
+      .cart-comunicat-visible {
+        visibility: visible;
+      }
+      .cart-img {
+        width: 70%;
+        max-width: 3rem;
+      }
+
+      .cart-off {
+        visibility: hidden;
+      }
+
+      .cart__container {
+        text-align: center;
+
+      .delete {
+        color: rgb(92, 10, 10);
+        cursor: pointer;
+      }
+      
+      .total {
+        font-weight: bold;
+      }
+      .item-name {
+        text-align: left;
+        font-size: 1rem;
+        margin: .4rem 0;
+        line-height:1.1rem
+        ;
+      }
+      .items {
+        margin: 1rem 0;
+      }
+        .btn{
+          @include button($light__color,$dark__color);
+          margin-top: 1em;
+          font-weight: bold;
+          text-align: center;
         }
       }
+    } 
+    
   }
-  
-  .wide-menu {
-    width: 70%;
-    grid-template-columns: 3fr 1fr;
-    @include grid(3fr 1fr,0.625rem);
+
+
+  @media (min-width:$breakpoint) {
+    header {
+      img {
+        max-width: 800px;
+      }
+    }
+
+    .main-menu {
+      max-width: 1000px;
+      .beer__container {
+        @include grid (1fr 1fr,2rem,2rem);
+      }
+    }
   }
+
+
+// ============ FOOTER BTN FILTER CONTAINER =============== 
 
   .fake-div {
     height: 6rem;
@@ -59,113 +131,68 @@
   
   .footer__main {
     background-color: $dark__color;
-    height: 5rem;
     width: 100%;
     position: fixed;
     bottom: 0;
-  }
+    padding: .5rem 0;
   
   .btn-container {
     text-align: center;
+
     .btn-title {
-      @include font(1rem,bold);
+      @include font(.9rem,bold);
       @include animation(bounce-2,4s,infinite,ease);
       text-transform: uppercase;
       color: white;
-      margin-top: 0.75rem;
+      padding: .4rem 0;
     }
+
+    .filter-btns-container {
+    display: none;
+    padding: .4rem 0;
+    }
+
+    .show-filter-btns {
+      display: block;
+    }
+
     .filter_btn {
       @include font(.75rem,bold);
       @include button ($dark__color,$light__color);
-      margin-top: 0.625rem;
-      margin-right: 1em;
+      margin-top: .4rem;
+      margin-right: .4rem;
       &:last-child{
         margin-right: 0;
       }
     }
   }
+}
 
-  .delete {
-    color: $delete_color;
-    cursor: pointer;
-    font-weight: bold;
-  }
+@media (min-width: $breakpoint){
+  .filter-btns-container {
+    display: block;
+    }
+}
+
   
   @keyframes bounce-2 {
     0% {
       transform: scale(1);
     }
     50% {
-      transform: scale(1.2);
+      transform: scale(1.05);
     }
     100% {
       transform: scale(1);
     }
   }
   
-  .cart__support {
-    position: absolute;
-    right: 0;
-    top: 35vh;
-  }
-  
-  .cart {
-    position: fixed;
-    cursor: pointer;
-  }
-  
-  .cart-number {
-    position: absolute;
-    top: 35%;
-    right: 15%;
-    font-size: 1rem;
-    text-align: center;
-  }
-  
-  .cart-comunicat {
-    position: absolute;
-    right: 0;
-    text-align: center;
-    font-family: roboto;
-    visibility: hidden;
-  }
-  
-  .cart-comunicat-visible {
-    visibility: visible;
-  }
-  
-  .cart-img {
-    width: 30%;
-    height: 30%;
-  }
-  
-  .cart__container {
-    text-align: center;
-    .btn{
-      @include button($light__color,$dark__color);
-      margin-top: 1em;
-    }
-  }
-  
-  .cart-off {
-    visibility: hidden;
-  }
-  
-  .total {
-    font-weight: bold;
-  }
-  .item-name {
-    font-weight: lighter;
-  }
-  .items {
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
+
   
   .order__comming {
     width: 0;
     height: 0;
-    background-color: color.scale(#878787, $lightness: 20%);
+    background-color: #ffffff;
     z-index: 100;
     position: absolute;
     top: 0;
@@ -211,12 +238,4 @@
       height: 100vh;
     }
   }
-  
-  @media only screen and (max-width: 1100px) {
-    .beer__container {
-      @include grid(1fr,0)
-    }
-  }
-  
-  
   
